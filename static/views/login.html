@@ -1,0 +1,24 @@
+<section class="main md-whiteframe-z1" layout="column">
+<md-toolbar ng-class="{'md-accent':admin}">
+    <h2 class="md-toolbar-tools">
+        <span>{{ admin ? "Admin Login" : "Please Sign In" }}</span>
+        <span flex></span>
+        <a class="login-link" href="#/admin/login" ng-hide="admin">Admin Login</a>
+        <a class="login-link" href="#/login" ng-hide="!admin">Return to Normal Login</a>
+    </h2>
+</md-toolbar>
+<form name="loginform" class="login-form" layout="column">
+    <md-input-container>
+        <label>Username</label>
+        <input ng-model="login.user" required autofocus>
+    </md-input-container>
+    <md-input-container>
+        <label>Password</label>
+        <input ng-model="login.passwd" type="password" required>
+    </md-input-container>
+    <md-button class="md-raised" ng-class="{'md-accent':admin, 'md-primary':!admin}" ng-click="submit(login)" ng-disabled="loginform.$invalid">Sign In</md-button>
+</form>
+<div class="alert" ng-hide="alert.hidden">
+    <strong>Oops!</strong> <span>{{alert.message}}</span>
+</div>
+</section>

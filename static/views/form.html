@@ -1,0 +1,32 @@
+<section class="main md-whiteframe-z1" layout="column">
+<md-toolbar>
+<h2 class="md-toolbar-tools">
+    <span>Please Complete and Submit</span>
+    <span flex></span>
+    <a class="login-link" ng-click="logout()">Sign Out</a>
+</h2>
+</md-toolbar>
+<form name="submitform" class="submit-form" layout="column">
+    <md-select name="campus" placeholder="Select Campus..." ng-model="data.Campus" required>
+        <md-option value="Primary">Primary</md-option>
+        <md-option value="Elementary">Elementary</md-option>
+        <md-option value="Intermediate">Intermediate</md-option>
+        <md-option value="Middle">Middle</md-option>
+        <md-option value="High">High</md-option>
+        <md-option value="Central Office">Central Office</md-option>
+        <md-option value="Transportation">Transportation</md-option>
+        <md-option value="Maintenance">Maintenance</md-option>
+    </md-select>
+    <a class="handbook" ng-hide="submitform.campus.$invalid" ng-click="open_handbook()">
+        <img src="images/handbook.png" /><br />
+        <span>Click to view handbook</span>
+    </a>
+    <md-checkbox ng-model="data.Agree" aria-label="I Agree" ng-hide="submitform.campus.$invalid || !data.clicked" required>
+        <small>I have read the BISD Handbook and agree to its terms. Checking this box constitutes my signature.</small>
+    </md-checkbox>
+    <md-button class="md-raised md-primary" ng-click="submit(data)" ng-disabled="submitform.$invalid">Submit</md-button>
+</form>
+<div class="alert" ng-hide="alert.hidden">
+    <strong>Oops!</strong> <span>{{alert.message}}</span>
+</div>
+</section>

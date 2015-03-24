@@ -1,0 +1,28 @@
+<section class="main md-whiteframe-z1 main-list" layout="column">
+    <div layout="row" layout-align="center center">
+        <md-input-container flex>
+            <label>Search</label>
+            <input ng-model="filter.search">
+        </md-input-container>
+        <span flex></span>
+        <md-button class="md-raised md-accent" ng-click="logout(false)">Sign Out</md-button>
+    </div>
+    <table id="list-table" st-table="displayList" st-safe-src="ajaxList">
+        <thead>
+            <tr>
+                <th st-sort="FirstName">First Name</th>
+                <th st-sort="LastName">Last Name</th>
+                <th st-sort="Campus">Campus</th>
+                <th st-sort="Time" st-sort-default="reverse">Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in displayList | filter: filter.search">
+                <td>{{item.FirstName}}</td>
+                <td>{{item.LastName}}</td>
+                <td>{{item.Campus}}</td>
+                <td>{{item.Time | date: "short"}}</td>
+            </tr>
+        </tbody>
+    </table>
+</section>

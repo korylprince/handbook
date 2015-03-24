@@ -1,0 +1,118 @@
+html, body, .wrapper, .view {
+    min-height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #1565c0 !important;
+}
+
+.view {
+    display: -webkit-flex;
+    -webkit-align: center;
+    -webkit-align-items: center;
+    -webkit-flex-grow: 1;
+    display: flex;
+    align: center;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.main {
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+    background-color: #fff;
+    z-index: 0;
+}
+
+.main.main-list {
+    max-width: 960px;
+    padding: 10px;
+    margin-top: 15px;
+    height: auto;
+}
+
+.login-link {
+    font-size: .7em;
+}
+
+.spacer {
+    width: 100%;
+    height: 40%;
+}
+
+.login-form, .submit-form, .alert {
+    padding: 25px 30px;
+}
+
+.alert {
+    color: #f44336;
+}
+
+.info-group {
+    margin: 10px;
+}
+
+.timeout {
+    font-size: 1.4em;
+}
+
+.handbook {
+    margin: 10px auto;
+    text-align: center;
+}
+
+.handbook img {
+    border: 1px solid #2196F3;
+}
+
+#list-table {
+    padding: 10px;
+    width: 100%;
+    text-align: center;
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+
+#list-table tr {
+    border-bottom: 1px solid #aaa;
+}
+
+#list-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+#list-table tr:nth-child(even) {
+    background: #ccc;
+}
+
+#list-table td {
+    padding: 8px;
+}
+
+.st-sort-ascent:before {
+    content: '\25B2';
+    padding: 5px;
+}
+
+.st-sort-descent:before {
+    content: '\25BC';
+    padding: 5px;
+}
+
+@media (max-device-width : 600px) {
+
+    .main {
+        margin-top: 0px;
+        width: 100%;
+        height: 100%;
+    }
+    
+    .login-form, .submit-form, .alert {
+        width: 100%;
+    }
+
+    .spacer {
+        display: none;
+    }
+}
