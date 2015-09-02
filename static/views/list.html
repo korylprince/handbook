@@ -17,12 +17,15 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="item in displayList | filter: filter.search">
+            <tr ng-repeat="item in displayList | filter: filter.search as filtered">
                 <td>{{item.FirstName}}</td>
                 <td>{{item.LastName}}</td>
                 <td>{{item.Campus}}</td>
                 <td>{{item.Time | date: "short"}}</td>
             </tr>
         </tbody>
+        <tfoot>
+            <tr><td colspan="4">Showing {{filtered.length}} Users</td></tr>
+        </tfoot>
     </table>
 </section>

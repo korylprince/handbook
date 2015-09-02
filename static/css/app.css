@@ -90,6 +90,11 @@ html, body, .wrapper, .view {
     padding: 8px;
 }
 
+#list-table tfoot {
+    font-weight: bold;
+    border-top: 1px solid #aaa;
+}
+
 .st-sort-ascent:before {
     content: '\25B2';
     padding: 5px;
