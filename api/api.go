@@ -33,3 +33,8 @@ type ErrorResponse struct {
 type ListResponse struct {
 	List []*Entry
 }
+
+//MissingListResponse is a server->client response with a list of LDAP Users who have not signed
+type MissingListResponse struct {
+	List []*LDAPUser
+}

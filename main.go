@@ -36,14 +36,24 @@ func main() {
 		Debug:    config.Debug,
 	}
 
+	ldapSearchConfig := &auth.Config{
+		Server:   config.LDAPServer,
+		Port:     config.LDAPPort,
+		BaseDN:   config.LDAPSearchBaseDN,
+		Security: config.ldapSecurity,
+		Debug:    config.Debug,
+	}
+
 	db, err := api.NewSQLDB(config.SQLDriver, config.SQLDSN)
 	if err != nil {
 		log.Panicln("Error creating SQLDB:", err)
 	}
 
 	c := &api.Context{
-		Auth: api.NewLDAPAuth(config.LDAPGroup, config.LDAPAdminGroup, ldapConfig),
-		DB:   db,
+		Auth:   api.NewLDAPAuth(config.LDAPGroup, config.LDAPAdminGroup, ldapConfig),
+		DB:     db,
+		LDAPDB: api.NewADDB(config.LDAPBindDN, config.LDAPBindPass, ldapSearchConfig),
+
 		SessionStore: api.NewMemorySessionStore(time.Duration(config.SessionDuration)*time.Minute,
 			time.Duration(config.AdminSessionDuration)*time.Minute),
 	}
@@ -63,6 +73,7 @@ func main() {
 	r.Handle("/api/1.0/admin/auth", api.AuthAdminHandler(c)).Methods("POST")
 	r.Handle("/api/1.0/submit", api.SubmitHandler(c)).Methods("POST")
 	r.Handle("/api/1.0/admin/list", api.ListHandler(c)).Methods("GET")
+	r.Handle("/api/1.0/admin/missing", api.MissingListHandler(c)).Methods("GET")
 
 	r.PathPrefix("/api").Handler(http.HandlerFunc(api.NotFoundHandler))
 

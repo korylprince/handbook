@@ -18,6 +18,10 @@ type Config struct {
 	LDAPSecurity   string //default: none
 	ldapSecurity   auth.SecurityType
 
+	LDAPBindDN       string //required, can be in user@dmain.tld format
+	LDAPBindPass     string //required
+	LDAPSearchBaseDN string //required
+
 	SessionDuration      int //in minutes; default: 5
 	AdminSessionDuration int //in minutes; default: 60
 
@@ -61,6 +65,10 @@ func init() {
 	default:
 		log.Fatalln("Invalid HANDBOOK_LDAPSECURITY:", config.LDAPSecurity)
 	}
+
+	checkEmpty(config.LDAPBindDN, "LDAPBINDDN")
+	checkEmpty(config.LDAPBindPass, "LDAPBINDPASS")
+	checkEmpty(config.LDAPSearchBaseDN, "LDAPSEARCHBASEDN")
 
 	if config.SessionDuration == 0 {
 		config.SessionDuration = 5

@@ -8,6 +8,7 @@ import (
 type Context struct {
 	Auth         Auth
 	DB           DB
+	LDAPDB       LDAPDB
 	SessionStore SessionStore
 }
 
@@ -38,4 +39,9 @@ func SubmitHandler(c *Context) http.Handler {
 //ListHandler returns a dump of the given context's DB
 func ListHandler(c *Context) http.Handler {
 	return contextHandler{HandleFunc: listHandler, Context: c}
+}
+
+//MissingListHandler returns a dump of the given context's DB
+func MissingListHandler(c *Context) http.Handler {
+	return contextHandler{HandleFunc: missingListHandler, Context: c}
 }
