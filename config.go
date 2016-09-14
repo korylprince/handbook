@@ -79,7 +79,6 @@ func init() {
 
 	checkEmpty(config.StaffDBDriver, "STAFFDBDRIVER")
 	checkEmpty(config.StaffDBDSN, "STAFFDBDSN")
-	checkEmpty(config.StaffDBExclusions, "STAFFDBEXCLUSIONS")
 
 	if config.SQLDriver == "mysql" && !strings.Contains(config.SQLDSN, "?parseTime=true") {
 		log.Fatalln("mysql DSN must contain \"?parseTime=true\"")
