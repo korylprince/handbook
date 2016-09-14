@@ -35,7 +35,7 @@ func (db *SQLDB) Submit(e *Entry) error {
 	if err != nil {
 		return err
 	}
-	_, err = db.db.Exec("INSERT INTO signers(employeeID, username, firstname, lastname, campus, headers, time) VALUES(?, ?, ?, ?, ?, ?);",
+	_, err = db.db.Exec("INSERT INTO signers(employee_id, username, firstname, lastname, campus, headers, time) VALUES(?, ?, ?, ?, ?, ?);",
 		e.EmployeeID,
 		e.Username,
 		e.FirstName,
