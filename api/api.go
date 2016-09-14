@@ -40,7 +40,7 @@ type Record struct {
 	SignTime     time.Time
 }
 
-//ListResponse is a server->client response with a list of entries
+//ListResponse is a server->client response with a list of signing records
 type ListResponse struct {
 	List []*Record
 }
