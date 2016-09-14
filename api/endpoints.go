@@ -189,6 +189,7 @@ func listHandler(c *Context, w http.ResponseWriter, r *http.Request) {
 				r.Location = d.Campus
 				r.SignTime = &(d.Time)
 			}
+			records = append(records, r)
 		}
 
 		e := json.NewEncoder(w)
