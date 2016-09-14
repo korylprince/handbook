@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strings"
 )
 
 //handleError returns a json response for the given code and logs the error
@@ -56,7 +57,7 @@ func authHandler(admin bool, c *Context, w http.ResponseWriter, r *http.Request)
 			return
 		}
 
-		completed, err := c.DB.Check(aReq.User)
+		completed, err := c.DB.Check(user.EmployeeID)
 		if err != nil {
 			handleError(w, http.StatusInternalServerError, fmt.Errorf("Error checking database for username: %v", err))
 			return
@@ -138,7 +139,7 @@ func submitHandler(c *Context, w http.ResponseWriter, r *http.Request) {
 	handleError(w, http.StatusUnauthorized, errors.New("Unauthorized"))
 }
 
-//listHandler will return a dump of the database if the sessionID is valid
+//listHandler will return a list of signing records if the sessionID is valid
 //or an HTTP 401 Error if not.
 func listHandler(c *Context, w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
@@ -156,14 +157,42 @@ func listHandler(c *Context, w http.ResponseWriter, r *http.Request) {
 	}
 	if sess != nil && sess.User != nil && sess.User.Admin {
 
-		list, err := c.DB.List()
+		staffList, err := c.StaffDB.List()
+		if err != nil {
+			handleError(w, http.StatusInternalServerError, fmt.Errorf("Error getting list from staff database: %v", err))
+			return
+		}
+
+		dbList, err := c.DB.List()
 		if err != nil {
 			handleError(w, http.StatusInternalServerError, fmt.Errorf("Error getting list from database: %v", err))
 			return
 		}
 
+		// map EmployeeID to DB field
+		dbMap := make(map[string]*Entry)
+		for _, e := range dbList {
+			dbMap[e.EmployeeID] = e
+		}
+
+		var records []*Record
+
+		for _, s := range staffList {
+			r := &Record{
+				FirstName:    s.FirstName,
+				LastName:     s.LastName,
+				EmployeeType: strings.Title(s.Type),
+				Location:     strings.Title(s.Location),
+			}
+			if d, ok := dbMap[s.EmployeeID]; ok {
+				//replace StaffDB location with one given
+				r.Location = d.Campus
+				r.SignTime = &(d.Time)
+			}
+		}
+
 		e := json.NewEncoder(w)
-		err = e.Encode(ListResponse{List: list})
+		err = e.Encode(ListResponse{List: records})
 		if err != nil {
 			handleError(w, http.StatusInternalServerError, fmt.Errorf("Error encoding json: %v", err))
 		}

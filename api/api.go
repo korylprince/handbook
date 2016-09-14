@@ -37,7 +37,7 @@ type Record struct {
 	LastName     string
 	EmployeeType string
 	Location     string
-	SignTime     time.Time
+	SignTime     *time.Time
 }
 
 //ListResponse is a server->client response with a list of signing records
