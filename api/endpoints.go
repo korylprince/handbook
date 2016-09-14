@@ -184,10 +184,10 @@ func listHandler(c *Context, w http.ResponseWriter, r *http.Request) {
 				EmployeeType: strings.Title(s.Type),
 				Location:     strings.Title(s.Location),
 			}
-			if d, ok := dbMap[s.EmployeeID]; ok {
+			if e, ok := dbMap[s.EmployeeID]; ok {
 				//replace StaffDB location with one given
-				r.Location = d.Campus
-				r.SignTime = &(d.Time)
+				r.Location = e.Campus
+				r.SignTime = &(e.Time)
 			}
 			records = append(records, r)
 		}
