@@ -21,7 +21,7 @@ INNER JOIN PUB."HAAETY-EMP-TYPES" AS empcode ON
     empcode."HAAETY-EMP-TYPE-CODE" = profile."HAAETY-EMP-TYPE-CODE"
 INNER JOIN PUB."HAABLD-BLD-CODES" as bldcode ON
     bldcode."HAABLD-BLD-CODE" = profile."HAABLD-BLD-CODE"
-WHERE empcode."HAAETY-EMP-TYPE-CODE" <> 'TERM'
+WHERE empcode."HAAETY-EMP-TYPE-CODE" NOT IN ('TERM', 'SUB', 'CRG', 'FSUB', 'MASUB')
 WITH (READPAST NOWAIT)
 `
 
@@ -91,10 +91,10 @@ func (db *SkywardDB) List() (list []*StaffMember, err error) {
 			return nil, err
 		}
 
-		s.FirstName = strings.Title(strings.TrimSpace(s.FirstName))
-		s.LastName = strings.Title(strings.TrimSpace(s.LastName))
-		s.Type = strings.Title(strings.TrimSpace(s.Type))
-		s.Location = strings.Title(strings.TrimSpace(s.Location))
+		s.FirstName = strings.Title(strings.ToLower(strings.TrimSpace(s.FirstName)))
+		s.LastName = strings.Title(strings.ToLower(strings.TrimSpace(s.LastName)))
+		s.Type = strings.Title(strings.ToLower(strings.TrimSpace(s.Type)))
+		s.Location = strings.Title(strings.ToLower(strings.TrimSpace(s.Location)))
 
 		s.EmployeeID = fmt.Sprintf("f%d", id)
 
