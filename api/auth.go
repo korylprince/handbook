@@ -30,6 +30,15 @@ type LDAPAuth struct {
 	config     *auth.Config
 }
 
+//NewLDAPAuth returns a new LDAPAuth with the given config, restricting logins to group and admins to to adminGroup if non-empty.
+func NewLDAPAuth(group, adminGroup string, config *auth.Config) *LDAPAuth {
+	return &LDAPAuth{
+		group:      group,
+		adminGroup: adminGroup,
+		config:     config,
+	}
+}
+
 //Login returns whether or not the given username or password is valid.
 //If valid, user will be non-nil
 //If the backend malfunctions, user will be nil and error will be non-nil.
@@ -65,13 +74,4 @@ func (a *LDAPAuth) AdminLogin(username, password string) (user *User, err error)
 	}
 
 	return &User{Username: username, Admin: true}, nil
-}
-
-//NewLDAPAuth returns a new LDAPAuth with the given config, restricting logins to group, if given.
-func NewLDAPAuth(group, adminGroup string, config *auth.Config) *LDAPAuth {
-	return &LDAPAuth{
-		group:      group,
-		adminGroup: adminGroup,
-		config:     config,
-	}
 }

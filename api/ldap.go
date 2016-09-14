@@ -27,7 +27,7 @@ func NewADDB(bindDN, bindPass string, config *auth.Config) *ADDB {
 		TLSConfig:  config.TLSConfig,
 		PagingSize: 1000,
 		Filter:     "(&(objectCategory=Person)(memberOf=CN=Staff,OU=User Groups,OU=Accounts,OU=bisd,DC=bullardisd,DC=net))",
-		Attributes: []string{"sn", "givenname", "sAMAccountName", "mail"},
+		Attributes: []string{"employeeID", "givenname", "sn", "sAMAccountName", "mail"},
 		Username:   bindDN,
 		Password:   bindPass,
 	}
@@ -43,10 +43,11 @@ func (db *ADDB) List() ([]*LDAPUser, error) {
 	var s []*LDAPUser
 	for _, e := range entries {
 		user := &LDAPUser{
-			LastName:  e.GetAttributeValue("sn"),
-			FirstName: e.GetAttributeValue("givenName"),
-			Username:  e.GetAttributeValue("sAMAccountName"),
-			Email:     e.GetAttributeValue("mail"),
+			EmployeeID: e.GetAttributeValue("employeeID"),
+			FirstName:  e.GetAttributeValue("givenName"),
+			LastName:   e.GetAttributeValue("sn"),
+			Username:   e.GetAttributeValue("sAMAccountName"),
+			Email:      e.GetAttributeValue("mail"),
 		}
 		s = append(s, user)
 	}
@@ -56,10 +57,11 @@ func (db *ADDB) List() ([]*LDAPUser, error) {
 
 //LDAPUser represents a User in an LDAP Database
 type LDAPUser struct {
-	LastName  string
-	FirstName string
-	Username  string
-	Email     string
+	EmployeeID string
+	FirstName  string
+	LastName   string
+	Username   string
+	Email      string
 }
 
 func (u LDAPUser) sortKey() string {
