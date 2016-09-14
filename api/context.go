@@ -40,8 +40,3 @@ func SubmitHandler(c *Context) http.Handler {
 func ListHandler(c *Context) http.Handler {
 	return contextHandler{HandleFunc: listHandler, Context: c}
 }
-
-//MissingListHandler returns a dump of the given context's DB
-func MissingListHandler(c *Context) http.Handler {
-	return contextHandler{HandleFunc: missingListHandler, Context: c}
-}

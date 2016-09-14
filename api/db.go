@@ -82,7 +82,7 @@ func (db *SQLDB) List() (list []*Entry, err error) {
 		e := &Entry{}
 		var j []byte
 
-		err := rows.Scan(&(e.Username), &(e.FirstName), &(e.LastName), &(e.Campus), &j, &(e.Time))
+		err = rows.Scan(&(e.Username), &(e.FirstName), &(e.LastName), &(e.Campus), &j, &(e.Time))
 		if err != nil {
 			return nil, err
 		}
