@@ -8,7 +8,7 @@ import (
 type Context struct {
 	Auth         Auth
 	DB           DB
-	LDAPDB       LDAPDB
+	StaffDB      StaffDB
 	SessionStore SessionStore
 }
 
