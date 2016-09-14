@@ -14,9 +14,9 @@ type DB interface {
 	//Submit commits an Entry to the database, and returns an error if one occurred
 	Submit(e *Entry) error
 
-	//Check returns whether or not the given username is already in the database.
+	//Check returns whether or not the given employeeID is already in the database.
 	//Check returns an error if one occurred.
-	Check(username string) (bool, error)
+	Check(employeeID string) (bool, error)
 
 	//List returns all entries in the database
 	List() ([]*Entry, error)
@@ -35,7 +35,8 @@ func (db *SQLDB) Submit(e *Entry) error {
 	if err != nil {
 		return err
 	}
-	_, err = db.db.Exec("INSERT INTO signers(username, firstname, lastname, campus, headers, time) VALUES(?, ?, ?, ?, ?, ?);",
+	_, err = db.db.Exec("INSERT INTO signers(employeeID, username, firstname, lastname, campus, headers, time) VALUES(?, ?, ?, ?, ?, ?);",
+		e.EmployeeID,
 		e.Username,
 		e.FirstName,
 		e.LastName,
@@ -46,10 +47,10 @@ func (db *SQLDB) Submit(e *Entry) error {
 	return err
 }
 
-//Check returns whether or not the given username is already in the database
+//Check returns whether or not the given employeeID is already in the database
 //Check returns an error if one occurred.
-func (db *SQLDB) Check(username string) (bool, error) {
-	row := db.db.QueryRow("SELECT username FROM signers WHERE username=?;", username)
+func (db *SQLDB) Check(employeeID string) (bool, error) {
+	row := db.db.QueryRow("SELECT employee_id FROM signers WHERE employee_id=?;", employeeID)
 
 	s := new(string)
 	err := row.Scan(s)
@@ -65,7 +66,7 @@ func (db *SQLDB) Check(username string) (bool, error) {
 
 //List returns all entries in the database
 func (db *SQLDB) List() (list []*Entry, err error) {
-	rows, err := db.db.Query("SELECT username, firstname, lastname, campus, headers, time FROM signers;")
+	rows, err := db.db.Query("SELECT employee_id, username, firstname, lastname, campus, headers, time FROM signers;")
 	if err != nil {
 		return nil, err
 	}
@@ -82,7 +83,7 @@ func (db *SQLDB) List() (list []*Entry, err error) {
 		e := &Entry{}
 		var j []byte
 
-		err = rows.Scan(&(e.Username), &(e.FirstName), &(e.LastName), &(e.Campus), &j, &(e.Time))
+		err = rows.Scan(&(e.EmployeeID), &(e.Username), &(e.FirstName), &(e.LastName), &(e.Campus), &j, &(e.Time))
 		if err != nil {
 			return nil, err
 		}
@@ -115,15 +116,16 @@ func NewSQLDB(driver, dsn string) (*SQLDB, error) {
 
 //Entry represents a database entry
 type Entry struct {
-	Username  string
-	FirstName string
-	LastName  string
-	Campus    string
-	Headers   http.Header
-	Time      time.Time
+	EmployeeID string
+	Username   string
+	FirstName  string
+	LastName   string
+	Campus     string
+	Headers    http.Header
+	Time       time.Time
 }
 
-//Validate makes sure the informatoin in e is valid
+//Validate makes sure the information in e is valid
 func (e *Entry) Validate() error {
 	if len(e.Username) > 255 {
 		return errors.New("Username > 255")
@@ -145,11 +147,12 @@ func (e *Entry) Validate() error {
 //NewEntry creates a new Entry with the given information
 func NewEntry(u *User, s *SubmitRequest, h http.Header) *Entry {
 	return &Entry{
-		Username:  u.Username,
-		FirstName: u.FirstName,
-		LastName:  u.LastName,
-		Campus:    s.Campus,
-		Headers:   h,
-		Time:      time.Now(),
+		EmployeeID: u.EmployeeID,
+		Username:   u.Username,
+		FirstName:  u.FirstName,
+		LastName:   u.LastName,
+		Campus:     s.Campus,
+		Headers:    h,
+		Time:       time.Now(),
 	}
 }

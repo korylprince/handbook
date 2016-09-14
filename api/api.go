@@ -1,5 +1,7 @@
 package api
 
+import "time"
+
 //AuthRequest is a client->server request for authentication
 type AuthRequest struct {
 	User   string
@@ -29,7 +31,16 @@ type ErrorResponse struct {
 	Error string
 }
 
+//Record represents a staff signing record
+type Record struct {
+	FirstName    string
+	LastName     string
+	EmployeeType string
+	Location     string
+	SignTime     time.Time
+}
+
 //ListResponse is a server->client response with a list of entries
 type ListResponse struct {
-	List []*Entry
+	List []*Record
 }

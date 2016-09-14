@@ -4,10 +4,11 @@ import "github.com/korylprince/go-ad-auth"
 
 //User represents a user's name
 type User struct {
-	Username  string
-	FirstName string
-	LastName  string
-	Admin     bool
+	EmployeeID string
+	Username   string
+	FirstName  string
+	LastName   string
+	Admin      bool
 }
 
 //Auth is an interface for an arbitrary authentication backend.
@@ -43,11 +44,17 @@ func NewLDAPAuth(group, adminGroup string, config *auth.Config) *LDAPAuth {
 //If valid, user will be non-nil
 //If the backend malfunctions, user will be nil and error will be non-nil.
 func (a *LDAPAuth) Login(username, password string) (user *User, err error) {
-	ok, attrs, err := auth.LoginWithAttrs(username, password, a.group, a.config, []string{"givenName", "sn"})
+	ok, attrs, err := auth.LoginWithAttrs(username, password, a.group, a.config, []string{"employeeID", "givenName", "sn"})
 	if !ok {
 		return nil, err
 	}
 	u := &User{Username: username}
+
+	if ids, ok := attrs["employeeID"]; ok {
+		if len(ids) > 0 {
+			u.EmployeeID = ids[0]
+		}
+	}
 
 	if gns, ok := attrs["givenName"]; ok {
 		if len(gns) > 0 {
