@@ -44,18 +44,25 @@ type SkywardDB struct {
 	db     *sql.DB
 	driver string
 	dsn    string
+	skips  map[string]struct{}
 }
 
-//NewSkywardDB creates a new SkywardDB with the given driver and dsn as used by database/sql's Open
-func NewSkywardDB(driver, dsn string) (*SkywardDB, error) {
+//NewSkywardDB creates a new SkywardDB with the given driver and dsn as used by database/sql's Open.
+//If excludedIDs is not nil, then any StaffMembers with an EmployeeID in excludedIDs will not be returned by List.
+func NewSkywardDB(driver, dsn string, excludedIDs []string) (*SkywardDB, error) {
 	db, err := sql.Open(driver, dsn)
 	if err != nil {
 		return nil, err
+	}
+	skips := make(map[string]struct{})
+	for _, skip := range excludedIDs {
+		skips[skip] = struct{}{}
 	}
 	return &SkywardDB{
 		db:     db,
 		driver: driver,
 		dsn:    dsn,
+		skips:  skips,
 	}, nil
 }
 
@@ -85,7 +92,9 @@ func (db *SkywardDB) List() (list []*StaffMember, err error) {
 
 		s.EmployeeID = fmt.Sprintf("f%d", id)
 
-		staff = append(staff, s)
+		if _, ok := db.skips[s.EmployeeID]; !ok {
+			staff = append(staff, s)
+		}
 	}
 	if err = rows.Err(); err != nil {
 		return nil, err
