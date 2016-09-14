@@ -3,6 +3,7 @@ package api
 import (
 	"database/sql"
 	"fmt"
+	"strings"
 )
 
 const staffQuery = `
@@ -89,6 +90,11 @@ func (db *SkywardDB) List() (list []*StaffMember, err error) {
 		if err != nil {
 			return nil, err
 		}
+
+		s.FirstName = strings.Title(strings.TrimSpace(s.FirstName))
+		s.LastName = strings.Title(strings.TrimSpace(s.LastName))
+		s.Type = strings.Title(strings.TrimSpace(s.Type))
+		s.Location = strings.Title(strings.TrimSpace(s.Location))
 
 		s.EmployeeID = fmt.Sprintf("f%d", id)
 
