@@ -24,9 +24,10 @@ type Config struct {
 	SQLDriver string //required
 	SQLDSN    string //required
 
-	StaffDBDriver     string //required
-	StaffDBDSN        string //required
-	StaffDBExclusions string //required, comma separated list of EmployeeIDs, without spaces
+	StaffDBDriver         string //required
+	StaffDBDSN            string //required
+	StaffDBExclusions     string //comma separated list of EmployeeIDs, without spaces
+	StaffDBTypeExclusions string //comma separated list of EmployeeCodes, without spaces
 
 	ListenAddr string //addr format used for net.Dial; required
 	Prefix     string //url prefix to mount api to without trailing slash

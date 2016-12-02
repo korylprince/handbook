@@ -42,7 +42,7 @@ func main() {
 	if err != nil {
 		log.Panicln("Error creating SQLDB:", err)
 	}
-	staffDB, err := api.NewSkywardDB(config.StaffDBDriver, config.StaffDBDSN, strings.Split(config.StaffDBExclusions, ","))
+	staffDB, err := api.NewSkywardDB(config.StaffDBDriver, config.StaffDBDSN, strings.Split(config.StaffDBExclusions, ","), strings.Split(config.StaffDBTypeExclusions, ","))
 	if err != nil {
 		log.Panicln("Error creating SkywardDB:", err)
 	}
