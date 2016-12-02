@@ -12,20 +12,22 @@
             <tr>
                 <th st-sort="FirstName">First Name</th>
                 <th st-sort="LastName">Last Name</th>
-                <th st-sort="Campus">Campus</th>
-                <th st-sort="Time" st-sort-default="reverse">Date</th>
+                <th st-sort="EmployeeType">Employee Type</th>
+                <th st-sort="Location">Campus</th>
+                <th st-sort="SignTime" st-sort-default="reverse">Date</th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="item in displayList | filter: filter.search as filtered">
                 <td>{{item.FirstName}}</td>
                 <td>{{item.LastName}}</td>
-                <td>{{item.Campus}}</td>
-                <td>{{item.Time | date: "short"}}</td>
+                <td>{{item.EmployeeType}}</td>
+                <td>{{item.Location}}</td>
+                <td>{{item.SignTime | date: "short"}}</td>
             </tr>
         </tbody>
         <tfoot>
-            <tr><td colspan="4">Showing {{filtered.length}} Users</td></tr>
+            <tr><td colspan="5">Showing {{filtered.length}} Users</td></tr>
         </tfoot>
     </table>
 </section>

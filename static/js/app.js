@@ -215,10 +215,8 @@ app.controller("listController", ["$scope", "$http", "$location", "session", "al
                 return;
             }
             $scope.ajaxList = data.List;
-            angular.forEach($scope.ajaxList, function(val,key) {
+            angular.forEach($scope.ajaxList, function(val, key) {
                 $scope.ajaxList[key].Time = new Date(val.Time); 
-                delete $scope.ajaxList[key].Username;
-                delete $scope.ajaxList[key].Headers;
             });
             $scope.displayList = [].concat($scope.ajaxList);
 
