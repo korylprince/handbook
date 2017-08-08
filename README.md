@@ -5,18 +5,18 @@ This is a small service to digitally sign the BISD handbook.
 
 [![GoDoc](https://godoc.org/github.com/korylprince/handbook?status.svg)](https://godoc.org/github.com/korylprince/handbook)
 
-#Installing#
+# Installing
 
 `go get github.com/korylprince/handbook/...`
 
 If you have any issues or questions, email the email address below, or open an issue at:
 https://github.com/korylprince/handbook/issues
 
-#Usage#
+# Usage
 
 Configuration is done with environment variables. See `Config` for what those options are and what they do.
 
-#Copyright Information#
+# Copyright Information
 
 Some libraries under `/static/` have their own licenses.
 
