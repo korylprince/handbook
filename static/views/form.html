@@ -7,16 +7,19 @@
 </h2>
 </md-toolbar>
 <form name="submitform" class="submit-form" layout="column">
-    <md-select name="campus" placeholder="Select Campus..." ng-model="data.Campus" required>
-        <md-option value="Early Childhood">Early Childhood</md-option>
-        <md-option value="Primary">Primary</md-option>
-        <md-option value="Elementary">Elementary</md-option>
-        <md-option value="Intermediate">Intermediate</md-option>
-        <md-option value="Middle">Middle</md-option>
-        <md-option value="High">High</md-option>
+    <md-select name="campus" placeholder="Select Campus/Department..." ng-model="data.Campus" required>
+        <md-option value="Alternative Education Center">Alternative Education Center</md-option>
+        <md-option value="Early Childhood School">Early Childhood School</md-option>
+        <md-option value="Primary School">Primary School</md-option>
+        <md-option value="Elementary School">Elementary School</md-option>
+        <md-option value="Intermediate School">Intermediate School</md-option>
+        <md-option value="Middle School">Middle School</md-option>
+        <md-option value="High School">High School</md-option>
         <md-option value="Central Office">Central Office</md-option>
-        <md-option value="Transportation">Transportation</md-option>
         <md-option value="Maintenance">Maintenance</md-option>
+        <md-option value="Teaching and Learning">Teaching and Learning</md-option>
+        <md-option value="Technology">Technology</md-option>
+        <md-option value="Transportation">Transportation</md-option>
     </md-select>
     <a class="handbook" ng-hide="submitform.campus.$invalid" ng-click="open_handbook()">
         <img src="images/handbook.png" /><br />

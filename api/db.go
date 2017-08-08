@@ -137,7 +137,7 @@ func (e *Entry) Validate() error {
 		return errors.New("LastName > 255")
 	}
 	switch e.Campus {
-	case "Early Childhood", "Primary", "Elementary", "Intermediate", "Middle", "High", "Central Office", "Transportation", "Maintenance":
+	case "Alternative Education Center", "Early Childhood School", "Primary School", "Elementary School", "Intermediate School", "Middle School", "High School", "Central Office", "Maintenance", "Teaching and Learning", "Technology", "Transportation":
 	default:
 		return fmt.Errorf("Undefined Campus: %s", e.Campus)
 	}
