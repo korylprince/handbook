@@ -1,0 +1,64 @@
+{
+	"ImportPath": "github.com/korylprince/handbook",
+	"GoVersion": "go1.10",
+	"GodepVersion": "v80",
+	"Deps": [
+		{
+			"ImportPath": "github.com/alexbrainman/odbc",
+			"Rev": "14913e72bfde8c83720086e5e32d4d8122b9932d"
+		},
+		{
+			"ImportPath": "github.com/alexbrainman/odbc/api",
+			"Rev": "14913e72bfde8c83720086e5e32d4d8122b9932d"
+		},
+		{
+			"ImportPath": "github.com/elazarl/go-bindata-assetfs",
+			"Comment": "v1.0.0-2-g38087fe",
+			"Rev": "38087fe4dafb822e541b3f7955075cc1c30bd294"
+		},
+		{
+			"ImportPath": "github.com/go-sql-driver/mysql",
+			"Comment": "v1.3-59-g1a676ac",
+			"Rev": "1a676ac6e4dce68e9303a1800773861350374a9e"
+		},
+		{
+			"ImportPath": "github.com/gorilla/handlers",
+			"Comment": "v1.3.0",
+			"Rev": "90663712d74cb411cbef281bc1e08c19d1a76145"
+		},
+		{
+			"ImportPath": "github.com/gorilla/mux",
+			"Comment": "v1.6.1-14-g94231ff",
+			"Rev": "94231ffd98496cbcb1c15b7bf2a9edfd5f852cd4"
+		},
+		{
+			"ImportPath": "github.com/kelseyhightower/envconfig",
+			"Comment": "v1.3.0-12-gb2c5c87",
+			"Rev": "b2c5c876e2659d9060d82e9b8494150d53854cc4"
+		},
+		{
+			"ImportPath": "github.com/korylprince/go-ad-auth",
+			"Comment": "v1.0.0",
+			"Rev": "909c6f5236f3030e7e7266174f5737eea1b41520"
+		},
+		{
+			"ImportPath": "github.com/mattn/go-sqlite3",
+			"Comment": "v1.6.0-22-gd896508",
+			"Rev": "d896508f87298565da02ed92730e7065c3de10b8"
+		},
+		{
+			"ImportPath": "golang.org/x/sys/windows",
+			"Rev": "7dca6fe1f43775aa6d1334576870ff63f978f539"
+		},
+		{
+			"ImportPath": "gopkg.in/asn1-ber.v1",
+			"Comment": "v1.2",
+			"Rev": "379148ca0225df7a432012b8df0355c2a2063ac0"
+		},
+		{
+			"ImportPath": "gopkg.in/ldap.v2",
+			"Comment": "v2.5.1",
+			"Rev": "bb7a9ca6e4fbc2129e3db588a34bc970ffe811a9"
+		}
+	]
+}
