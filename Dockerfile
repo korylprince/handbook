@@ -7,7 +7,7 @@ RUN apk add --no-cache git ca-certificates unixodbc-dev build-base
 
 RUN echo "$CREDENTIALS" > /root/.git-credentials && git config --global credential.helper store
 
-RUN git clone --branch "master" --single-branch --depth 1 \
+RUN git clone --branch "v11.7.3" --single-branch --depth 1 \
     https://git.bullardisd.net/administrator/skyward-odbc.git /odbc
 
 RUN git clone --branch "v1.1" --single-branch --depth 1 \
