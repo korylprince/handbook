@@ -1,6 +1,6 @@
 package main
 
-//go:generate go-bindata-assetfs static/...
+//go:generate go-bindata-assetfs -o bindata_assetfs.go static/...
 
 import (
 	"log"
